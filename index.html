@@ -1,0 +1,2728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>YachtWay · Sales Presentation Generator</title>
+<template id="__bundler_thumbnail">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <rect width="100" height="100" fill="#0a0a0c"/>
+    <rect x="30" y="30" width="40" height="40" rx="6" fill="none" stroke="#b69de8" stroke-width="2"/>
+    <text x="50" y="56" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#b69de8">YW</text>
+  </svg>
+</template>
+<link rel="stylesheet" href="tokens.css" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: linear-gradient(160deg, #1a0d33 0%, #110826 40%, #0a0a0c 100%);
+    color: #fff;
+    font-family: "Figtree", system-ui, sans-serif;
+    min-height: 100vh;
+  }
+  body {
+    display: grid;
+    place-items: center;
+    padding: 60px 24px;
+  }
+
+  /* Ambient */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 900px 600px at 80% 15%, rgba(182,157,232,.18), transparent 60%),
+      radial-gradient(ellipse 1100px 700px at 15% 90%, rgba(74,44,138,.20), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: #fff;
+    background:
+      radial-gradient(circle at 110% 100%, rgba(10,10,12,.7), transparent 60%),
+      linear-gradient(160deg, #1a0d33 0%, #110826 40%, #0a0a0c 100%);
+    font-family: "Figtree", system-ui, -apple-system, sans-serif;
+    padding: 32px clamp(20px, 4vw, 60px);
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  .stage {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1480px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(260px, 320px) 1fr;
+    gap: clamp(28px, 4vw, 64px);
+    align-items: start;
+  }
+
+  .intro {
+    position: sticky;
+    top: 32px;
+    padding-top: 8px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .brand img { height: 28px; }
+  .brand-label {
+    font-family: "Figtree", monospace;
+    font-size: 12px;
+    letter-spacing: .18em;
+    color: rgba(255,255,255,.5);
+    text-transform: uppercase;
+    padding-left: 14px;
+    border-left: 1px solid rgba(255,255,255,.18);
+  }
+  h1 {
+    font-family: "Poppins", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 56px;
+    line-height: 1.0;
+    letter-spacing: -.035em;
+    margin-bottom: 18px;
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #B69DE8, #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .intro p {
+    font-size: 19px;
+    line-height: 1.5;
+    color: rgba(255,255,255,.7);
+    max-width: 420px;
+  }
+  .intro-steps {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,.12);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 420px;
+  }
+  .intro-step {
+    padding: 14px 16px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 12px;
+  }
+  .intro-step .t {
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(255,255,255,.75);
+  }
+  .intro-step .t strong { color: #fff; font-weight: 600; }
+
+  /* Form card */
+  .card {
+    background: linear-gradient(160deg, rgba(26,13,51,.6) 0%, rgba(10,10,12,.85) 100%);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 18px;
+    padding: clamp(28px, 3vw, 40px);
+    box-shadow: 0 24px 60px rgba(0,0,0,.4);
+  }
+  .card-title {
+    font-family: "Figtree", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  #config-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(18px, 1.8vw, 28px) clamp(22px, 2vw, 32px);
+    align-items: start;
+  }
+  #config-form .field-group {
+    margin: 0;
+  }
+  #config-form .field-group.span-full,
+  #config-form .actions,
+  #config-form .pricing { grid-column: 1 / -1; }
+  @media (max-width: 980px) {
+    #config-form { grid-template-columns: 1fr; }
+  }
+    background: linear-gradient(160deg, rgba(26,13,51,.6) 0%, rgba(10,10,12,.85) 100%);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 24px;
+    padding: 40px 44px;
+    backdrop-filter: blur(20px);
+  }
+  .card-title {
+    font-family: "Figtree", monospace;
+    font-size: 12px;
+    letter-spacing: .18em;
+    color: #B69DE8;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .field-group { margin-bottom: 22px; }
+  .field-group:last-child { margin-bottom: 0; }
+  label {
+    display: block;
+    font-family: "Figtree", monospace;
+    font-size: 14px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.78);
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 12px;
+    color: #fff;
+    font-family: "Figtree", system-ui, sans-serif;
+    font-size: 18px;
+    transition: border-color .15s, background .15s;
+  }
+  select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%23ffffff80' stroke-width='1.5' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 44px;
+  }
+  select option {
+    background: #1a0d33;
+    color: #fff;
+  }
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  select:focus {
+    outline: none;
+    border-color: rgba(182,157,232,.6);
+    background: rgba(255,255,255,.06);
+  }
+  /* Compact number cells, label + stepper */
+  .num-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
+  }
+  .num-cell > label {
+    margin: 0;
+    font-family: "Figtree", monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.78);
+    font-weight: 600;
+  }
+  .num-cell .stepper {
+    align-self: flex-start;
+  }
+  .num-cell .stepper input {
+    width: 56px;
+    flex: 0 0 56px;
+    min-width: 0;
+  }
+
+  input::placeholder { color: rgba(255,255,255,.55); }
+
+  #team-row {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: flex-end;
+    grid-template-columns: none !important;
+  }
+  #team-row > div { flex: 0 0 auto; }
+
+  /* Segmented controls */
+  .seg {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 12px;
+    padding: 4px;
+    gap: 4px;
+  }
+  .seg button {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 11px 12px;
+    color: rgba(255,255,255,.62);
+    font-family: "Figtree", system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: -.005em;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .seg button:hover { color: #fff; }
+  .seg button[aria-pressed="true"] {
+    background: linear-gradient(180deg, rgba(182,157,232,.22), rgba(111,69,196,.18));
+    color: #fff;
+    box-shadow: 0 1px 0 rgba(255,255,255,.08) inset;
+  }
+
+  /* Pricing summary */
+  .pricing {
+    padding: 18px 20px;
+    border-radius: 14px;
+    background: rgba(182,157,232,.06);
+    border: 1px solid rgba(182,157,232,.22);
+  }
+  .pricing-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 12px; gap: 12px;
+  }
+  .pricing-head .lbl {
+    font-family: "Figtree", monospace;
+    font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    color: rgba(255,255,255,.6); font-weight: 600;
+  }
+  .pricing-head .total {
+    font-family: "Poppins", system-ui, sans-serif;
+    font-weight: 700; font-size: 24px; letter-spacing: -.02em;
+    color: #fff;
+  }
+  .pricing-head .total .per { font-size: 13px; color: rgba(255,255,255,.5); font-weight: 500; margin-left: 4px; }
+  .line {
+    display: grid; grid-template-columns: 1fr auto auto;
+    align-items: baseline;
+    gap: 12px;
+    padding: 6px 0;
+    font-size: 14px;
+    color: rgba(255,255,255,.78);
+    border-top: 1px dashed rgba(255,255,255,.08);
+  }
+  .line:first-of-type { border-top: 0; }
+  .line .name { color: rgba(255,255,255,.82); }
+  .line .qty {
+    font-family: "Figtree", monospace;
+    font-size: 12px; color: rgba(255,255,255,.45);
+    font-variant-numeric: tabular-nums;
+  }
+  .line .amt {
+    font-variant-numeric: tabular-nums;
+    color: #fff; font-weight: 600;
+  }
+  .line.muted { color: rgba(255,255,255,.4); }
+  .line.muted .amt { color: rgba(255,255,255,.4); font-weight: 500; }
+  .pricing-foot {
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,.10);
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 16px;
+    color: rgba(255,255,255,.78);
+  }
+  .pricing-foot strong { color: #fff; font-weight: 600; }
+
+  /* Add-on toggles */
+  .addons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .addon {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+    font-size: 13px;
+    color: rgba(255,255,255,.78);
+  }
+  .addon:hover { border-color: rgba(182,157,232,.4); }
+  .addon.on {
+    border-color: rgba(182,157,232,.5);
+    background: rgba(182,157,232,.10);
+    color: #fff;
+  }
+  .addon input { display: none; }
+  .addon .dot {
+    width: 14px; height: 14px; border-radius: 4px;
+    border: 1.5px solid rgba(255,255,255,.4);
+    flex-shrink: 0;
+    display: grid; place-items: center;
+  }
+  .addon.on .dot {
+    background: #B69DE8; border-color: #B69DE8;
+  }
+  .addon.on .dot::after {
+    content: ""; width: 6px; height: 6px; background: #1a0d33; border-radius: 1px;
+  }
+  .addon .price {
+    margin-left: auto;
+    font-family: "Figtree", monospace;
+    font-size: 12px; color: rgba(255,255,255,.5);
+    font-variant-numeric: tabular-nums;
+  }
+  .addon.unavailable { opacity: .4; cursor: not-allowed; }
+  .addon.unavailable .price { color: rgba(255,255,255,.3); }
+  .addon .info-i {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.10);
+    color: rgba(255,255,255,.65);
+    border: 1px solid rgba(255,255,255,.18);
+    font-family: "Figtree", system-ui, sans-serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: help;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .addon .info-i:hover {
+    background: rgba(111,69,196,.5);
+    color: #fff;
+    border-color: rgba(111,69,196,.8);
+  }
+  .addon .info-i::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 14px;
+    background: #1a0d33;
+    border: 1px solid rgba(111,69,196,.5);
+    border-radius: 10px;
+    color: #fff;
+    font-family: "Figtree", system-ui, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.45;
+    letter-spacing: 0;
+    text-transform: none;
+    width: 320px;
+    text-align: left;
+    box-shadow: 0 18px 40px rgba(0,0,0,.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .15s;
+    z-index: 20;
+    white-space: normal;
+  }
+  .addon .info-i:hover::after { opacity: 1; }
+
+  /* Brand list (shipyard) */
+  .brand-stepper {
+    display: flex; align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    background: rgba(182,157,232,.06);
+    border: 1px solid rgba(182,157,232,.22);
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  .brand-stepper > label {
+    margin: 0;
+    font-family: "Figtree", monospace;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.78);
+    font-weight: 600;
+    flex: 1;
+  }
+  .stepper {
+    display: inline-flex;
+    align-items: stretch;
+    background: rgba(0,0,0,.25);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .stepper .step-btn {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    width: 36px;
+    color: rgba(255,255,255,.7);
+    font-family: "Poppins", system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .stepper .step-btn:hover {
+    background: rgba(182,157,232,.18);
+    color: #fff;
+  }
+  .stepper .step-btn:disabled {
+    color: rgba(255,255,255,.2);
+    cursor: not-allowed;
+  }
+  .stepper .step-btn:disabled:hover { background: transparent; }
+  .stepper input {
+    width: 56px;
+    text-align: center;
+    background: transparent;
+    border: 0;
+    border-left: 1px solid rgba(255,255,255,.10);
+    border-right: 1px solid rgba(255,255,255,.10);
+    color: #fff;
+    font-family: "Poppins", system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 8px 0;
+  }
+  .stepper input:focus { outline: none; }
+  .brand-stepper .step-hint {
+    font-family: "Figtree", monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.4);
+  }
+  .brand-list {
+    display: flex; flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .brand-row {
+    display: grid;
+    grid-template-columns: 22px 1fr 32px;
+    gap: 10px;
+    align-items: center;
+  }
+  .brand-row .idx {
+    font-family: "Figtree", monospace;
+    font-size: 11px; letter-spacing: .08em;
+    color: rgba(255,255,255,.4); text-align: right;
+  }
+  .brand-row input {
+    width: 100%;
+    padding: 10px 12px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 10px;
+    color: #fff; font-family: inherit; font-size: 15px;
+    transition: border-color .15s;
+  }
+  .brand-row input:focus {
+    outline: none;
+    border-color: rgba(182,157,232,.55);
+  }
+  .brand-row .rm {
+    appearance: none; background: transparent; border: 0;
+    color: rgba(255,255,255,.35); font-size: 18px;
+    cursor: pointer; line-height: 1; padding: 4px;
+    border-radius: 6px;
+  }
+  .brand-row .rm:hover { color: #ff7a59; background: rgba(255,255,255,.04); }
+  .add-brand {
+    appearance: none;
+    background: rgba(182,157,232,.08);
+    border: 1px dashed rgba(182,157,232,.4);
+    color: rgba(255,255,255,.78);
+    padding: 10px 14px; border-radius: 10px;
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: background .15s, border-color .15s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .add-brand:hover {
+    background: rgba(182,157,232,.16);
+    border-color: rgba(182,157,232,.7);
+    color: #fff;
+  }
+  .add-brand .plus {
+    width: 18px; height: 18px;
+    background: rgba(182,157,232,.5);
+    color: #1a0d33; border-radius: 50%;
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 14px;
+  }
+
+  /* Inventory follow-up. */
+  .inv-q {
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 12px;
+  }
+  .inv-q-row {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0;
+  }
+  .inv-q-row + .inv-q-row { margin-top: 8px; border-top: 1px dashed rgba(255,255,255,.08); padding-top: 12px; }
+  .inv-q-label {
+    font-family: "Figtree", monospace;
+    font-size: 12px;
+    letter-spacing: .10em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.78);
+    font-weight: 600;
+  }
+  .seg.seg-mini { padding: 3px; }
+  .seg.seg-mini button {
+    padding: 7px 14px;
+    font-size: 12px;
+    letter-spacing: .04em;
+  }
+  .inv-q-note {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed rgba(255,255,255,.08);
+    font-family: "Figtree", monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .inv-q-note.include { color: #5fd398; }
+  .inv-q-note.skip    { color: rgba(255,255,255,.4); }
+
+  /* Central listings field */
+  .cl-card {
+    padding: 16px 18px;
+    background: rgba(255,200,80,.06);
+    border: 1px solid rgba(255,200,80,.30);
+    border-radius: 12px;
+  }
+  .cl-card .cl-hint {
+    font-family: "Figtree", monospace;
+    font-size: 11px; letter-spacing: .08em;
+    color: #f5c87a;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+  .cl-input-row {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .cl-input-row input[type="number"] {
+    flex: 0 0 160px;
+    padding: 12px 14px;
+    background: rgba(0,0,0,.25);
+    border: 1px solid rgba(255,200,80,.4);
+    border-radius: 10px;
+    color: #fff;
+    font-family: "Poppins", system-ui, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+  }
+  .cl-input-row input[type="number"]:focus {
+    outline: none;
+    border-color: rgba(255,200,80,.7);
+  }
+  .cl-input-row .cl-suffix {
+    font-family: "Figtree", monospace;
+    font-size: 12px; letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+  }
+
+  /* Website URL row */
+  .website-url-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    align-items: center;
+    gap: 14px;
+    margin-top: 14px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 12px;
+  }
+  .website-url-row .url-lbl {
+    margin: 0;
+    font-family: "Figtree", monospace;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.78);
+    font-weight: 600;
+  }
+  .website-url-row input {
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(0,0,0,.25);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 10px;
+    color: #fff;
+    font-family: "Figtree", system-ui, sans-serif;
+    font-size: 16px;
+  }
+  .website-url-row input:focus {
+    outline: none;
+    border-color: rgba(111,69,196,.55);
+  }
+
+  /* Website-score slider */
+  .ws-slider {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 12px;
+    padding: 18px 18px 14px;
+  }
+  .ws-score-line {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 12px;
+  }
+  .ws-score-num {
+    font-family: "Poppins", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.02em;
+    min-width: 56px;
+  }
+  .ws-readout {
+    font-family: "Poppins", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #b69de8;
+    letter-spacing: .02em;
+  }
+  .ws-readout-sub {
+    font-family: "Figtree", monospace;
+    font-size: 11px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(95,211,152,.9);
+    margin-top: 2px;
+  }
+  .ws-readout-sub.muted {
+    color: rgba(255,255,255,.4);
+  }
+  .ws-slider input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: transparent;
+    margin: 6px 0 10px;
+  }
+  .ws-slider input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #4aa6ff 0%, #6bc8ff 30%, #f4a83a 60%, #ef4444 100%);
+  }
+  .ws-slider input[type="range"]::-moz-range-track {
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #4aa6ff 0%, #6bc8ff 30%, #f4a83a 60%, #ef4444 100%);
+  }
+  .ws-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #4a2c8a;
+    margin-top: -7px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,.4);
+  }
+  .ws-slider input[type="range"]::-moz-range-thumb {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #4a2c8a;
+    cursor: pointer;
+  }
+  .ws-stops {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    font-family: "Figtree", monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    margin-top: 4px;
+  }
+  .ws-stops span:first-child { text-align: left; }
+  .ws-stops span:last-child  { text-align: right; }
+
+  .iq-desc {
+    font-family: "Figtree", monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    color: rgba(255,255,255,.55);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+  details.iq-legend {
+    margin-top: 12px;
+    border: 1px dashed rgba(255,255,255,.10);
+    border-radius: 10px;
+    font-family: "Figtree", system-ui, sans-serif;
+    color: rgba(255,255,255,.55);
+  }
+  details.iq-legend > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    letter-spacing: .04em;
+    color: rgba(255,255,255,.7);
+    user-select: none;
+  }
+  details.iq-legend > summary::-webkit-details-marker { display: none; }
+  details.iq-legend > summary::before {
+    content: "▸";
+    color: rgba(255,255,255,.5);
+    font-size: 10px;
+    transition: transform .15s;
+    display: inline-block;
+  }
+  details.iq-legend[open] > summary::before {
+    transform: rotate(90deg);
+  }
+  details.iq-legend > summary:hover { color: rgba(255,255,255,.9); }
+  details.iq-legend > .iq-legend-body {
+    padding: 4px 14px 14px;
+    display: grid;
+    gap: 6px;
+    font-size: 12px;
+    line-height: 1.45;
+    color: rgba(255,255,255,.55);
+  }
+  details.iq-legend > .iq-legend-body strong {
+    color: rgba(255,255,255,.85); font-weight: 600;
+  }
+
+  /* Presenter card (locked to preset team, pick 1 or 2) */
+  .presenter-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px 18px;
+    background: rgba(182,157,232,.06);
+    border: 1px solid rgba(182,157,232,.22);
+    border-radius: 14px;
+  }
+  .presenter-stack {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    height: 64px;
+    min-width: 64px;
+  }
+  .presenter-stack .presenter-avatar + .presenter-avatar {
+    margin-left: -18px;
+  }
+  .presenter-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(160deg, rgba(111,69,196,.4), rgba(74,44,138,.3));
+    border: 2px solid #1a0d33;
+    box-shadow: 0 0 0 1px rgba(182,157,232,.35);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .presenter-avatar.empty {
+    border: 2px dashed rgba(182,157,232,.35);
+    box-shadow: none;
+    background: rgba(255,255,255,.02);
+  }
+  .presenter-avatar img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .presenter-avatar .placeholder,
+  .presenter-avatar .initials {
+    font-family: "Poppins", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -.01em;
+    color: rgba(255,255,255,.9);
+  }
+  .presenter-avatar .placeholder {
+    font-size: 12px;
+    letter-spacing: .14em;
+    color: rgba(255,255,255,.4);
+  }
+  .presenter-pick {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .presenter-chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px 10px 10px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+  }
+  .presenter-chip:hover {
+    background: rgba(182,157,232,.10);
+    border-color: rgba(182,157,232,.35);
+  }
+  .presenter-chip.on {
+    background: rgba(127,86,217,.18);
+    border-color: rgba(127,86,217,.6);
+  }
+  .presenter-chip.locked {
+    opacity: .35;
+    cursor: not-allowed;
+  }
+  .presenter-chip .chip-thumb {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(160deg, rgba(111,69,196,.4), rgba(74,44,138,.3));
+    border: 1px solid rgba(255,255,255,.10);
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+  }
+  .presenter-chip .chip-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .presenter-chip .chip-thumb .initials {
+    font-family: "Poppins", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: rgba(255,255,255,.9);
+  }
+  .presenter-chip .chip-meta {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .presenter-chip .chip-name {
+    font-family: "Figtree", system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -.005em;
+  }
+  .presenter-chip .chip-title {
+    font-family: "Figtree", monospace;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+  }
+  .presenter-chip.on .chip-title {
+    color: #b69de8;
+  }
+  .presenter-chip .chip-check {
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    border: 1.5px solid rgba(255,255,255,.25);
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    transition: background .15s, border-color .15s;
+  }
+  .presenter-chip.on .chip-check {
+    background: #7F56D9;
+    border-color: #7F56D9;
+  }
+  .presenter-chip.on .chip-check::after {
+    content: "";
+    width: 10px; height: 6px;
+    border-left: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+  .presenter-hint {
+    font-family: "Figtree", monospace;
+    font-size: 11px;
+    letter-spacing: .10em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.4);
+    margin-top: 2px;
+  }
+
+  /* Logo upload */
+  .logo-zone {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(255,255,255,.03);
+    border: 1px dashed rgba(255,255,255,.25);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .logo-zone:hover {
+    border-color: rgba(182,157,232,.6);
+    background: rgba(182,157,232,.06);
+  }
+  .logo-zone.has-file {
+    border-style: solid;
+    border-color: rgba(182,157,232,.4);
+    background: rgba(182,157,232,.06);
+  }
+  .logo-zone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .logo-preview {
+    flex: 0 0 80px;
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.04);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  .logo-preview img,
+  .logo-preview object {
+    max-width: 70px;
+    max-height: 70px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+  .logo-preview .placeholder {
+    font-family: "Figtree", monospace;
+    font-size: 11px;
+    letter-spacing: .14em;
+    color: rgba(255,255,255,.35);
+    text-transform: uppercase;
+  }
+  .logo-meta {
+    flex: 1;
+    min-width: 0;
+  }
+  .logo-meta .lname {
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 4px;
+    font-weight: 500;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .logo-meta .lname.empty { color: rgba(255,255,255,.55); font-weight: 400; }
+  .logo-meta .lhint {
+    font-size: 13px;
+    color: rgba(255,255,255,.45);
+  }
+
+  .actions {
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,.10);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 24px;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    font-family: "Poppins", system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    cursor: pointer;
+    transition: filter .15s, background .15s, border-color .15s;
+  }
+  .btn-primary {
+    background: #4B0EA3;
+    color: #fff;
+    border-color: rgba(127,86,217,.5);
+  }
+  .btn-primary:hover {
+    background: #5B1FB8;
+    filter: none;
+  }
+  .btn-secondary {
+    background: rgba(255,255,255,.06);
+    color: rgba(255,255,255,.85);
+    border-color: rgba(255,255,255,.18);
+  }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,.10);
+    border-color: rgba(255,255,255,.28);
+  }
+
+  /* Saved presets */
+  .presets {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,.10);
+  }
+  .presets-title {
+    font-family: "Figtree", monospace;
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.5);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .preset-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .preset-pill {
+    padding: 8px 14px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 999px;
+    font-size: 13px;
+    color: rgba(255,255,255,.78);
+    cursor: pointer;
+    transition: background .15s, color .15s;
+    position: relative;
+  }
+  .preset-pill:hover {
+    background: rgba(182,157,232,.12);
+    color: #fff;
+  }
+  .preset-pill .x {
+    margin-left: 8px;
+    color: rgba(255,255,255,.35);
+    font-size: 14px;
+  }
+  .preset-pill .x:hover { color: #ff7a59; }
+
+  @media (max-width: 1100px) {
+    .stage { grid-template-columns: 1fr; gap: 32px; }
+    .intro { position: static; padding-top: 0; }
+    h1 { font-size: 42px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Client-side auth gate. Hides the form behind a username/password screen.
+     Credentials hardcoded below, anyone with view-source can bypass, so this
+     is a soft deterrent, not real security. -->
+<style>
+  body:not(.authed) > .stage { display: none !important; }
+  body:not(.authed) #login-gate { display: flex; }
+  body.authed #login-gate { display: none; }
+
+  #login-gate {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    z-index: 9999;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(111,69,196,.25), transparent 60%),
+      linear-gradient(160deg, #1a0d33 0%, #110826 40%, #0a0a0c 100%);
+  }
+  .login-card {
+    width: 100%; max-width: 420px;
+    padding: 36px 36px 32px;
+    background: linear-gradient(160deg, rgba(26,13,51,.7) 0%, rgba(10,10,12,.9) 100%);
+    border: 1px solid rgba(255,255,255,.10);
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.4);
+    color: #fff;
+    font-family: "Figtree", system-ui, sans-serif;
+  }
+  .login-card .brand {
+    font-family: "Poppins", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -.01em;
+    margin-bottom: 4px;
+  }
+  .login-card .brand-lockup {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(255,255,255,.10);
+  }
+  .login-card .brand-lockup img {
+    height: 28px; width: auto; display: block;
+  }
+  .login-card .brand-lockup .brand-label {
+    font-family: "Figtree", monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.78);
+    padding-left: 14px;
+    border-left: 1px solid rgba(255,255,255,.15);
+  }
+  .login-card .sub {
+    font-family: "Figtree", monospace;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.6);
+    margin-bottom: 28px;
+  }
+  .login-card label {
+    display: block;
+    font-family: "Figtree", monospace;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.78);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .login-card input {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 12px;
+    color: #fff;
+    font-family: "Figtree", system-ui, sans-serif;
+    font-size: 16px;
+    margin-bottom: 18px;
+    transition: border-color .15s, background .15s;
+  }
+  .login-card input:focus {
+    outline: none;
+    border-color: rgba(111,69,196,.55);
+    background: rgba(255,255,255,.06);
+  }
+  .login-card button {
+    appearance: none;
+    width: 100%;
+    padding: 14px 18px;
+    background: linear-gradient(90deg, #4A2C8A, #6F45C4);
+    color: #fff;
+    border: 0;
+    border-radius: 12px;
+    font-family: "Figtree", system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .02em;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: filter .15s;
+  }
+  .login-card button:hover { filter: brightness(1.12); }
+  .login-card .err {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #ff9b80;
+    min-height: 18px;
+    text-align: center;
+  }
+
+  body.authed #logout-btn { display: inline-flex; }
+  body:not(.authed) #logout-btn { display: none; }
+  #logout-btn {
+    position: fixed;
+    top: 20px; right: 24px;
+    z-index: 9000;
+    align-items: center; gap: 8px;
+    padding: 9px 14px;
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 999px;
+    color: rgba(255,255,255,.78);
+    font-family: "Figtree", monospace;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color .15s, background .15s, border-color .15s;
+  }
+  #logout-btn:hover {
+    color: #fff;
+    background: rgba(111,69,196,.18);
+    border-color: rgba(111,69,196,.55);
+  }
+  #logout-btn .ico { font-size: 14px; line-height: 1; }
+</style>
+
+<button type="button" id="logout-btn" title="Sign out">
+  <span class="ico">↪</span>
+  <span>Sign out</span>
+</button>
+
+<div id="login-gate" role="dialog" aria-modal="true" aria-label="Sign in">
+  <form class="login-card" id="login-form" autocomplete="off">
+    <div class="brand-lockup">
+      <img src="assets/brand/yachtway-white.png" alt="YachtWay" />
+      <span class="brand-label">Sales Toolkit</span>
+    </div>
+    <div class="sub">Sign in to continue</div>
+
+    <label for="login-user">Username</label>
+    <input type="text" id="login-user" autocomplete="off" autofocus />
+
+    <label for="login-pass">Password</label>
+    <input type="password" id="login-pass" autocomplete="off" />
+
+    <button type="submit">Sign in →</button>
+    <div class="err" id="login-err"></div>
+  </form>
+</div>
+
+<script>
+  (function () {
+    // Hardcoded; client-side soft gate, not real auth.
+    const USER = 'Snowflake';
+    const PASS = 'ProjectTakeover';
+    const KEY  = 'yw-sales-authed';
+
+    if (sessionStorage.getItem(KEY) === '1') {
+      document.body.classList.add('authed');
+    }
+
+    const form = document.getElementById('login-form');
+    const userEl = document.getElementById('login-user');
+    const passEl = document.getElementById('login-pass');
+    const errEl  = document.getElementById('login-err');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const u = userEl.value.trim();
+      const p = passEl.value;
+      if (u === USER && p === PASS) {
+        sessionStorage.setItem(KEY, '1');
+        document.body.classList.add('authed');
+        errEl.textContent = '';
+      } else {
+        errEl.textContent = 'Incorrect username or password.';
+        passEl.value = '';
+        passEl.focus();
+      }
+    });
+
+    // Wire the floating Sign out button.
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', () => {
+        sessionStorage.removeItem(KEY);
+        document.body.classList.remove('authed');
+        userEl.value = '';
+        passEl.value = '';
+        userEl.focus();
+      });
+    }
+  })();
+</script>
+
+<div class="stage">
+  <!-- Left: intro -->
+  <div class="intro">
+    <div class="brand">
+      <img src="assets/brand/yachtway-white.png" alt="YachtWay" />
+      <span class="brand-label">Sales Toolkit</span>
+    </div>
+    <h1>Personalize the <em>presentation.</em></h1>
+    <p><strong>You are YachtWay in the room.</strong> This is the first impression every future customer gets of the company, and it is how the world will judge you as a professional. A personalized pitch wins a generic showdown every single time. Five minutes here saves the meeting, do not shortcut your own pitch.</p>
+  </div>
+
+  <!-- Right: form -->
+  <div class="card">
+    <div class="card-title" id="card-title">Dealer / Brokerage details</div>
+
+    <!-- Hidden preload of team photos. Each <img> here is what the standalone
+         bundler inlines as a data: URL; the TEAM array then resolves its `photo:`
+         field back to the inlined src on boot. Keep this list in sync with the
+         TEAM array, one img per team member. -->
+    <div id="team-photo-preload" style="display:none;" aria-hidden="true">
+      <img data-team-photo="assets/team/debbie-pettibone-sm.png" src="assets/team/debbie-pettibone-sm.png" alt="">
+      <img data-team-photo="assets/team/gianmarco-sessa-sm.png"  src="assets/team/gianmarco-sessa-sm.png"  alt="">
+      <img data-team-photo="assets/team/heigo-paartalu-sm.png"   src="assets/team/heigo-paartalu-sm.png"   alt="">
+      <img data-team-photo="assets/team/kristi-smith-sm.png"     src="assets/team/kristi-smith-sm.png"     alt="">
+      <img data-team-photo="assets/team/mavil-gonzalez-sm.png"   src="assets/team/mavil-gonzalez-sm.png"   alt="">
+    </div>
+
+    <form id="config-form">
+      <!-- Presenter selector. Locked to a preset team list so the name on the
+           cover slide is never misspelled. Pick 1 or 2 people; photos are
+           auto-attached. -->
+      <div class="field-group span-full" id="presenter-field">
+        <label>Presenter <span style="color:rgba(255,255,255,.5);font-weight:500;font-size:11px;letter-spacing:.10em;">· PICK UP TO 3</span> <span style="color:#ff9b80;font-weight:700;">· MANDATORY</span></label>
+        <div class="presenter-card" id="presenter-card">
+          <div class="presenter-stack" id="presenter-stack">
+            <div class="presenter-avatar empty" id="presenter-avatar-0">
+              <span class="placeholder">YW</span>
+            </div>
+          </div>
+          <div class="presenter-pick" id="presenter-roster">
+            <!-- chips rendered by JS -->
+          </div>
+          <input type="hidden" id="presenter-name" />
+          <input type="hidden" id="presenter-title" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Region</label>
+        <div class="seg" id="seg-region" role="tablist">
+          <button type="button" data-val="us" aria-pressed="true">United States · USD</button>
+          <button type="button" data-val="eu" aria-pressed="false">Europe · EUR</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Account type</label>
+        <div class="seg" id="seg-persona" role="tablist">
+          <button type="button" data-val="dealer" aria-pressed="true">Dealership / Brokerage</button>
+          <button type="button" data-val="shipyard" aria-pressed="false">Shipyard</button>
+        </div>
+      </div>
+
+      <div class="field-group span-full">
+        <label id="logo-label">Dealer logo · white on transparent · SVG or PNG <span style="color:#ff9b80;font-weight:700;">· MANDATORY</span></label>
+        <div class="logo-zone" id="logo-zone">
+          <input type="file" id="logo-input" accept=".svg,.png,.jpg,.jpeg,.webp" />
+          <div class="logo-preview" id="logo-preview">
+            <span class="placeholder">Logo</span>
+          </div>
+          <div class="logo-meta">
+            <div class="lname empty" id="logo-name">Click or drop a file...</div>
+            <div class="lhint">Grab it from their website footer / press kit, or Google "[dealer name] logo PNG". SVG preferred · transparent background · white fill</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label id="name-label">Dealer name <span style="color:#ff9b80;font-weight:700;">· MANDATORY</span></label>
+        <input type="text" id="dealer-name" placeholder="QWERTY Yachts" required />
+        <input type="hidden" id="dealer-short" />
+      </div>
+
+      <!-- State (US) / country (EU). Shown for both dealers and shipyards. -->
+      <div class="field-group span-full" id="state-field" style="display:block;">
+        <label id="state-label">Dealer location · state <span style="color:#ff9b80;font-weight:700;">· MANDATORY</span></label>
+        <select id="dealer-state">
+          <option value="">Select state...</option>
+          <option value="FL">Florida</option>
+          <option value="CA">California</option>
+          <option value="TX">Texas</option>
+          <option value="NY">New York</option>
+          <option value="CT">Connecticut</option>
+          <option value="MA">Massachusetts</option>
+          <option value="MD">Maryland</option>
+          <option value="NJ">New Jersey</option>
+          <option value="NC">North Carolina</option>
+          <option value="SC">South Carolina</option>
+          <option value="GA">Georgia</option>
+          <option value="AL">Alabama</option>
+          <option value="LA">Louisiana</option>
+          <option value="TN">Tennessee</option>
+          <option value="WA">Washington</option>
+          <option value="OR">Oregon</option>
+          <option value="AZ">Arizona</option>
+          <option value="NV">Nevada</option>
+          <option value="MI">Michigan</option>
+          <option value="OTHER">Other US state</option>
+        </select>
+        <div id="state-hint" style="font-size:12px;color:rgba(255,255,255,.4);margin-top:6px;line-height:1.4;">
+          South Florida dealers get the YachtWay Studio pitch slide. Other states skip it.
+        </div>
+      </div>
+
+      <!-- Dealer-only: authorized dealer flag (unlocks the Authorized Dealers slide) -->
+      <div class="field-group span-full" id="dealer-fields" style="display:block;">
+        <label>Account category <span style="color:#ff9b80;font-weight:700;">· MANDATORY</span></label>
+        <div class="seg" id="seg-dealer-type" role="tablist">
+          <button type="button" data-val="brokerage" aria-pressed="true">Brokerage</button>
+          <button type="button" data-val="authorized" aria-pressed="false">Authorized dealer for a brand</button>
+        </div>
+
+      </div>
+
+      <!-- Shipyard-only: distribution model -->
+      <div class="field-group span-full" id="shipyard-fields" style="display:none;">
+        <label>Distribution model</label>
+        <div class="seg" id="seg-distribution" role="tablist">
+          <button type="button" data-val="factory" aria-pressed="true">Factory direct</button>
+          <button type="button" data-val="dealer-network" aria-pressed="false">Dealer network</button>
+        </div>
+        <div id="dealers-row" style="display:none; margin-top:12px;">
+          <input type="number" id="dealer-count" placeholder="How many dealers in the network?" min="0" />
+        </div>
+      </div>
+
+      <!-- Branded lineup (shipyards + authorized dealers).
+           Sales person enters how many brands; we render that many name inputs. -->
+      <div class="field-group span-full" id="brand-list-wrap" style="display:none;">
+        <div class="brand-stepper">
+          <label for="brand-count" id="brand-count-label">How many brands?</label>
+          <div class="stepper">
+            <button type="button" class="step-btn" id="brand-minus" aria-label="Decrease">−</button>
+            <input type="text" inputmode="numeric" pattern="[0-9]*" id="brand-count" maxlength="2" placeholder="0" />
+            <button type="button" class="step-btn" id="brand-plus" aria-label="Increase">+</button>
+          </div>
+          <span class="step-hint">Up to 10</span>
+        </div>
+        <div class="brand-list" id="brand-list"></div>
+      </div>
+
+      <div class="field-group">
+        <label>Primary attendee <span style="color:#ff9b80;font-weight:700;">· MANDATORY</span></label>
+        <div style="font-size:13px;color:rgba(255,255,255,.65);margin: -4px 0 12px;line-height:1.5;">
+          This is <strong style="color:#fff;">the person you are giving the presentation to</strong>. The decision-maker on the other side of the table. We use their name to personalize the cover and the close.
+        </div>
+        <div class="row-3" style="grid-template-columns: 1fr 1fr;">
+          <input type="text" id="attendee-first" placeholder="First name" required />
+          <input type="text" id="attendee-last"  placeholder="Last name"  required />
+        </div>
+      </div>
+
+      <div class="field-group span-full">
+        <label>Your pitch line <span style="color:#ff9b80;font-weight:700;">· MUST BE UNIQUE FOR THIS PRESENTATION</span></label>
+        <input type="text" id="cover-line" maxlength="80" placeholder="e.g. Maximum visibility in the top search results." />
+        <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:12px;color:rgba(255,255,255,.4);line-height:1.4;">
+          <span>Tailor it to this dealer, no recycled pitches.</span>
+          <span id="cover-line-counter" style="font-family:'Figtree',monospace;letter-spacing:.06em;">0 / 80</span>
+        </div>
+      </div>
+
+
+      <div class="field-group span-full">
+        <label><span id="unit-label">Team & sites</span> · for monthly estimate</label>
+        <div class="row-3" id="team-row">
+          <div class="num-cell">
+            <label for="price-brokers">Brokers</label>
+            <div class="stepper">
+              <button type="button" class="step-btn" data-step="price-brokers" data-dir="-1" aria-label="Decrease">−</button>
+              <input type="text" inputmode="numeric" pattern="[0-9]*" id="price-brokers" placeholder="0" maxlength="3" />
+              <button type="button" class="step-btn" data-step="price-brokers" data-dir="1" aria-label="Increase">+</button>
+            </div>
+          </div>
+          <div class="num-cell">
+            <label for="price-managers">Managers</label>
+            <div class="stepper">
+              <button type="button" class="step-btn" data-step="price-managers" data-dir="-1" aria-label="Decrease">−</button>
+              <input type="text" inputmode="numeric" pattern="[0-9]*" id="price-managers" placeholder="0" maxlength="3" />
+              <button type="button" class="step-btn" data-step="price-managers" data-dir="1" aria-label="Increase">+</button>
+            </div>
+          </div>
+          <div id="units-cell" class="num-cell">
+            <label for="price-units" id="units-label">Offices</label>
+            <div class="stepper">
+              <button type="button" class="step-btn" data-step="price-units" data-dir="-1" aria-label="Decrease">−</button>
+              <input type="text" inputmode="numeric" pattern="[0-9]*" id="price-units" placeholder="0" maxlength="3" />
+              <button type="button" class="step-btn" data-step="price-units" data-dir="1" aria-label="Increase">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-group span-full">
+        <label>Add-ons</label>
+        <div class="addons" id="addons"></div>
+      </div>
+
+      <div class="pricing" id="pricing">
+        <div class="pricing-head">
+          <span class="lbl">Estimated YachtWay monthly</span>
+          <span class="total" id="price-total">$0<span class="per">/mo</span></span>
+        </div>
+        <div id="price-lines"></div>
+        <div class="pricing-foot">
+          <span id="price-annual">$0 / year</span>
+          <span><strong id="price-region">US</strong> · <span id="price-persona">Dealership</span></span>
+        </div>
+      </div>
+
+      <!-- Dealer-only: website rubric. Score the dealer's current site
+           on a 0–10 scale (we include the redesign slide if < 6) and
+           drop in a homepage screenshot for the side-by-side. -->
+      <div class="field-group dealer-only span-full" id="website-field" style="display:block;">
+        <label>Their current website · score &amp; screenshot</label>
+
+        <div class="ws-slider">
+          <div class="ws-score-line">
+            <div class="ws-score-num" id="ws-readout-num">5</div>
+            <div class="ws-score-meta">
+              <div class="ws-readout" id="ws-readout">Cool</div>
+              <div class="iq-desc" id="ws-desc">Has a feed but feels dated, slow, or hard to navigate on mobile.</div>
+            </div>
+          </div>
+          <input type="range" id="website-score" min="0" max="10" step="1" value="5" />
+          <div class="ws-stops">
+            <span>0 · Freezing</span>
+            <span style="text-align:center;color:rgba(255,255,255,.5);">5</span>
+            <span>10 · Ultra Hot</span>
+          </div>
+          <details class="iq-legend">
+            <summary>See the rating guide</summary>
+            <div class="iq-legend-body">
+              <div><strong>0–1 Freezing:</strong> no website at all, or a single page with phone and email only.</div>
+              <div><strong>2–3 Cold:</strong> has a site but no listing feed, just a contact form. Looks dated.</div>
+              <div><strong>4–6 Cool / Warm:</strong> has a basic feed, but slow, dated layout, poor mobile experience.</div>
+              <div><strong>7–8 Hot:</strong> modern site with working inventory feed, decent mobile, average UX.</div>
+              <div><strong>9–10 Ultra Hot:</strong> professional, fast, mobile-first, clean buyer experience throughout.</div>
+            </div>
+          </details>
+        </div>
+
+        <div class="website-url-row">
+          <label for="website-url" class="url-lbl">Website URL</label>
+          <input type="url" id="website-url" placeholder="https://qwertyyachts.com" />
+        </div>
+
+        <div class="logo-zone" id="screenshot-zone" style="margin-top:14px;">
+          <input type="file" id="screenshot-input" accept=".png,.jpg,.jpeg,.webp" />
+          <div class="logo-preview" id="screenshot-preview" style="flex: 0 0 120px; width: 120px; height: 80px; border-radius: 8px;">
+            <span class="placeholder">Site</span>
+          </div>
+          <div class="logo-info">
+            <div class="logo-title" id="screenshot-name">Drop a homepage screenshot here <span style="color:#ff9b80;font-weight:700;font-size:12px;">· MANDATORY</span></div>
+            <div class="logo-hint">PNG or JPG · always required, regardless of score</div>
+          </div>
+        </div>
+
+        <!-- Inventory follow-up. Determines whether the API pitch slide
+             gets injected: no inventory → show; BoatsGroup feed → show
+             (we want them off BoatsGroup); their own feed → skip. -->
+        <div class="inv-q">
+          <div class="inv-q-row">
+            <div class="inv-q-label">Does the dealer have inventory on their website?</div>
+            <div class="seg seg-mini" id="seg-has-inv" role="tablist">
+              <button type="button" data-val="no"  aria-pressed="true">No</button>
+              <button type="button" data-val="yes" aria-pressed="false">Yes</button>
+            </div>
+          </div>
+          <div class="inv-q-row" id="inv-feed-row" style="display:none;">
+            <div class="inv-q-label">Is it a BoatsGroup API feed?</div>
+            <div class="seg seg-mini" id="seg-inv-feed" role="tablist">
+              <button type="button" data-val="other"      aria-pressed="true">Own / other feed</button>
+              <button type="button" data-val="boatsgroup" aria-pressed="false">BoatsGroup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image quality rubric (dealer-only). Sales person rates the
+           current cover-photo quality on their listings. Low scores
+           trigger a harder Studio pitch and unlock the AI Enhance slide. -->
+      <div class="field-group dealer-only span-full" id="image-quality-field" style="display:block;">
+        <label>Their listing image quality <span style="color:rgba(255,255,255,.4);font-weight:500;font-size:11px;letter-spacing:.10em;">· OPEN A LISTING, JUDGE THE COVER PHOTO</span></label>
+        <div class="ws-slider">
+          <div class="ws-score-line">
+            <div class="ws-score-num" id="iq-readout-num">5</div>
+            <div class="ws-score-meta">
+              <div class="ws-readout" id="iq-readout">Decent</div>
+              <div class="iq-desc" id="iq-desc">In the open water, clearly amateur, but passable for a basic listing.</div>
+            </div>
+          </div>
+          <input type="range" id="image-quality" min="0" max="10" step="1" value="5" />
+          <div class="ws-stops">
+            <span>0 · Very bad</span>
+            <span style="text-align:center;color:rgba(255,255,255,.5);">5</span>
+            <span>10 · Studio quality</span>
+          </div>
+          <details class="iq-legend">
+            <summary>See the rating guide</summary>
+            <div class="iq-legend-body">
+              <div><strong>0–1 Very bad:</strong> boat on a trailer, in a marina, covers still on.</div>
+              <div><strong>2–3 Bad:</strong> pixelated, low resolution, poorly lit interiors, fenders dangling.</div>
+              <div><strong>4–6 Average:</strong> open water, clearly amateur, passes a basic listing.</div>
+              <div><strong>7–8 Good:</strong> sharp, well-lit, mostly clean compositions.</div>
+              <div><strong>9–10 Studio:</strong> full pro shoot, running shots, proper editing, well-staged interiors.</div>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- Central listings count. Sales person must check the dealer's site
+           for their featured/central listings number. Required for all dealers. -->
+      <div class="field-group dealer-only span-full" id="central-listings-field" style="display:block;">
+        <label>Central listings on their site <span style="color:#ff9b80;font-weight:700;">· MANDATORY · LOOK ON THEIR HOMEPAGE</span></label>
+        <div class="cl-card">
+          <div class="cl-body">
+            <div class="cl-hint" style="font-size: 16px">Look for the dealer's featured / central listings count  only  on their site.</div>
+            <div class="cl-input-row">
+              <input type="number" id="central-listings" min="0" max="99999" placeholder="e.g. 247" />
+              <span class="cl-suffix">central listings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="open-deck">
+          Open presentation →
+        </button>
+        <button type="button" class="btn btn-secondary" id="copy-link" title="Copy a personalized link, open later or share with yourself">
+          🔗 Copy share link
+        </button>
+        <button type="button" class="btn btn-secondary" id="save-pdf" title="Open the deck and trigger print → Save as PDF">
+          ⬇ Save as PDF
+        </button>
+        <div id="link-feedback" style="flex-basis:100%;font-family:'Figtree',monospace;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.5);margin-top:4px;min-height:14px;"></div>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  const STORAGE_KEY = 'yw-preset';
+  const HISTORY_KEY = 'yw-preset-history';
+
+  const $ = (id) => document.getElementById(id);
+
+  // ── Team roster. Locked list so the presenter's name is never misspelled
+  // on the cover slide. Edit this array to add/remove people, set the
+  // displayed title, and (optionally) attach a real photo URL, leave
+  // `photo` empty to fall back to a generated initials avatar.
+  const TEAM = [
+    { name: 'Debbie Pettibone', title: 'Head of FinTech Development & Partnerships', photo: 'assets/team/debbie-pettibone-sm.png' },
+    { name: 'Gianmarco Sessa',  title: 'European Sales Manager',                     photo: 'assets/team/gianmarco-sessa-sm.png' },
+    { name: 'Heigo Paartalu',   title: 'CEO & Co-founder',                           photo: 'assets/team/heigo-paartalu-sm.png' },
+    { name: 'Kristi Smith',     title: 'CMO',                                        photo: 'assets/team/kristi-smith-sm.png' },
+    { name: 'Mavil Gonzalez',   title: 'Director of Sales',                          photo: 'assets/team/mavil-gonzalez-sm.png' },
+  ];
+
+  // After the standalone bundler inlines the page, the hidden #team-photo-preload
+  // <img> tags get their src rewritten to data: URLs. JS-string-only references
+  // (like the TEAM array above) are NOT inlined by the bundler, so we resolve
+  // each TEAM entry's photo back to the preloaded element's data: src on boot.
+  // In dev (non-bundled), this is a no-op since the URLs already match.
+  (function resolveTeamPhotos() {
+    document.querySelectorAll('#team-photo-preload img[data-team-photo]').forEach(img => {
+      const orig = img.getAttribute('data-team-photo');
+      const t = TEAM.find(p => p.photo === orig);
+      if (t) t.photo = img.src;
+    });
+  })();
+
+  // ── Pricing matrix, pulled from the YachtWay configurator (us/eu × dealer/shipyard).
+  // null means "not offered in this region" → shown as unavailable.
+  const PLANS = {
+    us_dealer:    { region: "us", currency: "$", unitLabel: "Office",  unitKey: "office", broker: 19, manager: 9, unit: 69, easySign: 269, vato: 99, web: 250, api: 199, live: 75, studioPass: 199 },
+    us_shipyard:  { region: "us", currency: "$", unitLabel: "Brand",   unitKey: "brand",  broker: 19, manager: 9, unit: 99, easySign: 269, vato: 99, web: 250, api: 199, live: 75, studioPass: 199 },
+    eu_dealer:    { region: "eu", currency: "€", unitLabel: "Office",  unitKey: "office", broker: 12, manager: 5, unit: 49, easySign: null, vato: 79, web: 209, api: 69, live: 60, studioPass: null },
+    eu_shipyard:  { region: "eu", currency: "€", unitLabel: "Brand",   unitKey: "brand",  broker: 12, manager: 5, unit: 69, easySign: null, vato: 79, web: 209, api: 69, live: 60, studioPass: null },
+  };
+
+  // Current selection
+  let region = 'us';
+  let persona = 'dealer';
+  let distribution = 'factory'; // 'factory' | 'dealer-network'  (shipyard only)
+  let dealerType = 'brokerage'; // 'brokerage' | 'authorized'  (dealer only)
+  let dealerState = '';        // US state code, e.g. 'FL'  (dealer only)
+  let brands = [];  // [{ name: 'Sanlorenzo' }, ...]  (shipyard only)
+  // Tooltip text for each add-on, surfaced via title= and our custom CSS popover.
+  const ADDON_TIPS = {
+    easySign: 'End-to-end digital deal management. Purchase agreements, listing agreements, commission docs, all sent for signing and tracked in one place. Manager approval, DocuSign-compatible.',
+    vato:     'Vessel Valuation Tool. Search any make, model, and year (or year range) anywhere in the world. See every listing from every major platform, plus market value benchmarked per country.',
+    web:      'Branded dealer website with live inventory sync. Modern, mobile-first, your logo and domain. Edit on YachtWay, the change appears on your site in seconds.',
+    api:      'YachtWay API feed. Pull inventory once, sync everywhere. Faster updates than BoatsGroup, cleaner data, your inventory stays yours.',
+    live:     'YachtWay LIVE. Stream the boat live from anywhere, buyers tune in from around the world. Reposted to YachtWay YouTube Hub channel (500K+ subs).',
+    studioPass: 'YachtWay Studio Pass. Florida only. Unlimited photo, video, and drone shoots for your listings. Editorial-grade media production, scheduled in app, delivered to listings within 48 hours.'
+  };
+  const addonState = { easySign: false, vato: false, web: false, api: false, live: 0, studioPass: false };
+
+  const logoInput = $('logo-input');
+  const logoZone = $('logo-zone');
+  const logoPreview = $('logo-preview');
+  const logoName = $('logo-name');
+
+  // Website-rubric fields (dealer-only).
+  const screenshotInput = $('screenshot-input');
+  const screenshotZone  = $('screenshot-zone');
+  const screenshotPreview = $('screenshot-preview');
+  const screenshotName  = $('screenshot-name');
+  const websiteScoreEl  = $('website-score');
+  const imageQualityEl  = $('image-quality');
+  let websiteScore = 5;
+  let imageQuality = 5;
+  let websiteScreenshot = null;
+  let websiteScreenshotName = null;
+  let hasInventory = 'no';      // 'no' | 'yes'
+  let inventoryFeed = 'other';  // 'other' | 'boatsgroup'
+
+  const WS_LABELS = [
+    'Freezing', 'Freezing', 'Cold', 'Cold',
+    'Cool',     'Cool',     'Warm', 'Warm',
+    'Hot',      'Hot',      'Ultra Hot'
+  ];
+  const WS_DESCS = [
+    'No website at all, or just a one-pager with phone and email.',
+    'No website at all, or just a one-pager with phone and email.',
+    'Has a site, but no inventory feed. Just contact info. Looks dated.',
+    'Has a site, but no inventory feed. Just contact info. Looks dated.',
+    'Has a feed but feels dated, slow, or hard to navigate on mobile.',
+    'Has a feed but feels dated, slow, or hard to navigate on mobile.',
+    'Functional site, working feed, but average mobile and average UX.',
+    'Modern site with a working inventory feed. Decent mobile experience.',
+    'Modern site with a working inventory feed. Decent mobile experience.',
+    'Professional, fast, mobile-first. Clean buyer experience throughout.',
+    'Professional, fast, mobile-first. Clean buyer experience throughout.'
+  ];
+
+  const IQ_LABELS = [
+    'Very bad', 'Very bad', 'Bad', 'Poor',
+    'Decent',   'Decent',   'Good', 'Good',
+    'Great',    'Excellent','Studio quality'
+  ];
+  const IQ_DESCS = [
+    'Boat on a trailer, in a marina, covers still on.',
+    'Boat on a trailer, in a marina, covers still on.',
+    'Pixelated, low resolution, poorly lit interiors, fenders dangling.',
+    'Pixelated, low resolution, poorly lit interiors, fenders dangling.',
+    'In the open water, clearly amateur, but passable for a basic listing.',
+    'In the open water, clearly amateur, but passable for a basic listing.',
+    'Sharp, well-lit, mostly clean compositions.',
+    'Sharp, well-lit, mostly clean compositions.',
+    'Strong photography, considered angles and lighting.',
+    'Near-pro shoot, clean editing, well-staged interiors.',
+    'Full pro shoot, running shots, proper editing, well-staged interiors.'
+  ];
+
+  function setWebsiteScore(n) {
+    websiteScore = Math.max(0, Math.min(10, parseInt(n, 10) || 0));
+    websiteScoreEl.value = websiteScore;
+    $('ws-readout-num').textContent = websiteScore;
+    $('ws-readout').textContent     = WS_LABELS[websiteScore];
+    $('ws-desc').textContent        = WS_DESCS[websiteScore];
+    // Note: we intentionally do not surface whether the redesign slide will be
+    // included, do not want the sales person to score high to skip the work.
+  }
+
+  websiteScoreEl.addEventListener('input', () => setWebsiteScore(websiteScoreEl.value));
+
+  function setImageQuality(n) {
+    imageQuality = Math.max(0, Math.min(10, parseInt(n, 10) || 0));
+    imageQualityEl.value = imageQuality;
+    $('iq-readout-num').textContent = imageQuality;
+    $('iq-readout').textContent     = IQ_LABELS[imageQuality];
+    $('iq-desc').textContent        = IQ_DESCS[imageQuality];
+  }
+  imageQualityEl.addEventListener('input', () => setImageQuality(imageQualityEl.value));
+
+  // Inventory follow-up. The deck pitches an API feed when the dealer
+  // either has NO inventory on their site OR is currently piping in BoatsGroup
+  // (we want to displace BoatsGroup).
+  function renderInventoryUI() {
+    setSeg('seg-has-inv',  hasInventory);
+    setSeg('seg-inv-feed', inventoryFeed);
+    $('inv-feed-row').style.display = hasInventory === 'yes' ? 'flex' : 'none';
+    // Note: we intentionally do not surface whether the API-pitch slide will be
+    // included, do not want the sales person to short-circuit the question.
+  }
+  wireSeg('seg-has-inv',  (v) => { hasInventory  = v; renderInventoryUI(); });
+  wireSeg('seg-inv-feed', (v) => { inventoryFeed = v; renderInventoryUI(); });
+
+  // Screenshot upload (mirrors the logo flow).
+  function setScreenshotPreview(dataUrl, fileName) {
+    websiteScreenshot = dataUrl;
+    websiteScreenshotName = fileName || null;
+    if (dataUrl) {
+      screenshotPreview.innerHTML = '<img alt="Homepage screenshot" src="' + dataUrl + '" />';
+      screenshotZone.classList.add('has-file');
+      screenshotName.innerHTML = (fileName || 'screenshot') + ' <span style="color:#5fd398;font-weight:700;font-size:12px;">· ATTACHED</span>';
+    } else {
+      screenshotPreview.innerHTML = '<span class="placeholder">Site</span>';
+      screenshotZone.classList.remove('has-file');
+      screenshotName.innerHTML = 'Drop a homepage screenshot here <span style="color:#ff9b80;font-weight:700;font-size:12px;">· MANDATORY</span>';
+    }
+  }
+
+  // Downscale + JPEG-compress a data URL to keep it under ~250KB so the
+  // entire config (logo + screenshot) still fits in 5MB localStorage.
+  async function compressDataUrl(dataUrl, opts) {
+    opts = opts || {};
+    const maxDim = opts.maxDim || 1400;
+    const quality = opts.quality || 0.78;
+    const img = new Image();
+    await new Promise((res, rej) => {
+      img.onload = res; img.onerror = rej; img.src = dataUrl;
+    });
+    let { width, height } = img;
+    const scale = Math.min(1, maxDim / Math.max(width, height));
+    width = Math.round(width * scale);
+    height = Math.round(height * scale);
+    const canvas = document.createElement('canvas');
+    canvas.width = width; canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, width, height);
+    return canvas.toDataURL('image/jpeg', quality);
+  }
+
+  screenshotInput.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async () => {
+      try {
+        // Compress before stashing in state so localStorage write later succeeds.
+        const compressed = await compressDataUrl(reader.result, { maxDim: 1400, quality: 0.78 });
+        setScreenshotPreview(compressed, file.name);
+      } catch (err) {
+        setScreenshotPreview(reader.result, file.name);
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+
+  const fields = {
+    dealerName: $('dealer-name'),
+    dealerShort: $('dealer-short'),
+    attendeeFirst: $('attendee-first'),
+    attendeeLast:  $('attendee-last'),
+    presenterName: $('presenter-name'),
+    presenterTitle: $('presenter-title'),
+    coverLine: $('cover-line'),
+    dealerCount: $('dealer-count'),
+    priceBrokers: $('price-brokers'),
+    priceManagers: $('price-managers'),
+    priceUnits: $('price-units'),
+    centralListings: $('central-listings'),
+    websiteUrl: $('website-url'),
+  };
+
+  // ── Segmented control wiring
+  function wireSeg(elId, onChange) {
+    const root = $(elId);
+    root.addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-val]');
+      if (!btn) return;
+      root.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+      onChange(btn.dataset.val);
+    });
+  }
+  // Swap state↔country options + label based on region.
+  const US_STATES = [
+    ['FL','Florida'],['CA','California'],['TX','Texas'],['NY','New York'],
+    ['CT','Connecticut'],['MA','Massachusetts'],['MD','Maryland'],['NJ','New Jersey'],
+    ['NC','North Carolina'],['SC','South Carolina'],['GA','Georgia'],['AL','Alabama'],
+    ['LA','Louisiana'],['TN','Tennessee'],['WA','Washington'],['OR','Oregon'],
+    ['AZ','Arizona'],['NV','Nevada'],['MI','Michigan'],['OTHER','Other US state'],
+  ];
+  const EU_COUNTRIES = [
+    ['IT','Italy'],['MC','Monaco'],['FR','France'],['ES','Spain'],['DE','Germany'],
+    ['NL','Netherlands'],['GR','Greece'],['HR','Croatia'],['MT','Malta'],['PT','Portugal'],
+    ['CH','Switzerland'],['AT','Austria'],['BE','Belgium'],['DK','Denmark'],['SE','Sweden'],
+    ['NO','Norway'],['FI','Finland'],['GB','United Kingdom'],['IE','Ireland'],['OTHER','Other EU country'],
+  ];
+  function renderLocationField() {
+    const sel = document.getElementById('dealer-state');
+    const lbl = document.getElementById('state-label');
+    const hint = document.getElementById('state-hint');
+    if (!sel) return;
+    const isEU = region === 'eu';
+    const list = isEU ? EU_COUNTRIES : US_STATES;
+    const prevValue = sel.value;
+    sel.innerHTML = '<option value="">Select ' + (isEU ? 'country' : 'state') + '...</option>' +
+      list.map(([code, name]) => '<option value="' + code + '">' + name + '</option>').join('');
+    // Preserve selection if still valid in the new list
+    if (list.some(([c]) => c === prevValue)) sel.value = prevValue;
+    else sel.value = '';
+    const audience = persona === 'shipyard' ? 'Shipyard' : 'Dealer';
+    lbl.innerHTML = audience + ' location · ' + (isEU ? 'country' : 'state') +
+      ' <span style="color:#ff9b80;font-weight:700;">· MANDATORY</span>';
+    hint.textContent = isEU
+      ? ('For Europe we ask for the ' + audience.toLowerCase() + '\u2019s country. The Studio pitch slide is US-only.')
+      : (persona === 'shipyard'
+          ? 'Shipyards get the Studio pitch slide regardless of state.'
+          : 'South Florida dealers get the YachtWay Studio pitch slide. Other states skip it.');
+  }
+
+  wireSeg('seg-region',  (v) => { region  = v; renderLocationField(); renderPersonaUI(); renderPricing(); });
+  wireSeg('seg-persona', (v) => { persona = v; renderLocationField(); renderPersonaUI(); renderDistributionUI(); renderPricing(); });
+  wireSeg('seg-distribution', (v) => { distribution = v; renderDistributionUI(); });
+  wireSeg('seg-dealer-type', (v) => { dealerType = v; renderPersonaUI(); });
+  // Track dealer-state changes; gates the Studio slide in the deck and
+  // surfaces the Studio Pass add-on when location is Florida.
+  document.getElementById('dealer-state').addEventListener('change', (e) => {
+    dealerState = e.target.value;
+    // If user moves away from FL, drop the Studio Pass selection so it does
+    // not silently linger in the config payload.
+    if (dealerState !== 'FL') addonState.studioPass = false;
+    renderPricing();
+  });
+
+  function renderPersonaUI() {
+    const isShipyard = persona === 'shipyard';
+    const isAuthDealer = persona === 'dealer' && dealerType === 'authorized';
+    const showBrands = isShipyard || isAuthDealer;
+    $('website-field').style.display = isShipyard ? 'none' : 'block';
+    $('central-listings-field').style.display = isShipyard ? 'none' : 'block';
+    $('image-quality-field').style.display    = isShipyard ? 'none' : 'block';
+    $('shipyard-fields').style.display = isShipyard ? 'block' : 'none';
+    $('dealer-fields').style.display   = isShipyard ? 'none' : 'block';
+
+    // For shipyards, swap the units count input for a named-brand list.
+    // For authorized dealers, keep the offices count AND show the brand list.
+    $('units-cell').style.display = isShipyard ? 'none' : 'block';
+    $('brand-list-wrap').style.display = showBrands ? 'block' : 'none';
+    $('team-row').style.gridTemplateColumns = '';
+
+    // Relabel the brand-count question to match the audience.
+    const brandLabel = $('brand-count-label');
+    if (brandLabel) {
+      brandLabel.textContent = isShipyard
+        ? 'How many brands?'
+        : 'How many brands do you represent?';
+    }
+
+    if (showBrands) {
+      $('brand-count').value = brands.length || '';
+      renderBrandList();
+    }
+    $('unit-label').textContent = isShipyard ? 'Team' : 'Team & sites';
+
+    // Relabel the dealer-centric copy when this is a shipyard pitch.
+    $('card-title').textContent       = isShipyard ? 'Shipyard details' : 'Dealer / Brokerage details';
+    // Keep label copy persona-aware. The MANDATORY marker is preserved in markup
+    // because we only swap the leading copy here.
+    $('logo-label').innerHTML       = (isShipyard
+      ? 'Shipyard logo · white on transparent · SVG or PNG'
+      : 'Dealer logo · white on transparent · SVG or PNG'
+      ) + ' <span style="color:#ff9b80;font-weight:700;">· MANDATORY</span>';
+    $('name-label').innerHTML       = (isShipyard ? 'Shipyard name' : 'Dealer name') +
+      ' <span style="color:#ff9b80;font-weight:700;">· MANDATORY</span>';
+    fields.dealerName.placeholder     = isShipyard ? 'Sanlorenzo' : 'QWERTY Yachts';
+
+    if (isShipyard) {
+      renderDistributionUI();
+      renderBrandList();
+    }
+  }
+
+  function renderBrandList() {
+    const wrap = $('brand-list');
+    wrap.innerHTML = brands.map((b, i) =>
+      '<div class="brand-row">' +
+        '<span class="idx">' + String(i + 1).padStart(2, '0') + '</span>' +
+        '<input type="text" placeholder="Brand name (e.g. Sanlorenzo)" data-i="' + i + '" value="' + (b.name || '').replace(/"/g, '&quot;') + '" />' +
+      '</div>'
+    ).join('');
+    wrap.querySelectorAll('input').forEach(el => {
+      el.addEventListener('input', () => {
+        brands[+el.dataset.i].name = el.value;
+        renderPricing();
+      });
+    });
+  }
+
+  function setBrandCount(n) {
+    n = Math.max(0, Math.min(10, n || 0));
+    if (n > brands.length) {
+      while (brands.length < n) brands.push({ name: '' });
+    } else if (n < brands.length) {
+      brands.length = n;
+    }
+    $('brand-count').value = n || '';
+    renderBrandList();
+    renderPricing();
+  }
+
+  $('brand-count').addEventListener('input', () => {
+    const n = parseInt($('brand-count').value, 10);
+    setBrandCount(isNaN(n) ? 0 : n);
+  });
+  $('brand-minus').addEventListener('click', () => {
+    setBrandCount((brands.length || 0) - 1);
+  });
+  $('brand-plus').addEventListener('click', () => {
+    setBrandCount((brands.length || 0) + 1);
+  });
+
+  function renderDistributionUI() {
+    const showCount = persona === 'shipyard' && distribution === 'dealer-network';
+    $('dealers-row').style.display = showCount ? 'block' : 'none';
+    // Shipyards going through a dealer network do not have their own brokers/managers;
+    // hide those team fields so the sales person only enters dealer count.
+    const brokersCell = document.querySelector('#team-row > .num-cell:nth-child(1)');
+    const managersCell = document.querySelector('#team-row > .num-cell:nth-child(2)');
+    const hideTeam = showCount;
+    if (brokersCell)  brokersCell.style.display = hideTeam ? 'none' : '';
+    if (managersCell) managersCell.style.display = hideTeam ? 'none' : '';
+  }
+
+  function setSeg(elId, val) {
+    const root = $(elId);
+    root.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.val === val ? 'true' : 'false'));
+  }
+
+  // ── Pricing render
+  const fmt = (cur, n) => cur + (n || 0).toLocaleString('en-US');
+
+  function planKey() { return region + '_' + persona; }
+
+  function renderPricing() {
+    const plan = PLANS[planKey()];
+    const cur = plan.currency;
+    const brokers  = parseInt(fields.priceBrokers.value, 10) || 0;
+    const managers = parseInt(fields.priceManagers.value, 10) || 0;
+    const isShipyard = persona === 'shipyard';
+    // Shipyards count NAMED brand entries; dealers use the offices input.
+    const namedBrands = brands.filter(b => (b.name || '').trim()).length;
+    const units = isShipyard ? namedBrands : (parseInt(fields.priceUnits.value, 10) || 0);
+
+    // Update placeholders/labels to reflect persona
+    if (!isShipyard) {
+      $('units-label').textContent = plan.unitLabel + 's';
+    }
+
+    const lines = [];
+    if (brokers > 0)  lines.push({ name: 'Broker seats',  qty: brokers + ' × ' + fmt(cur, plan.broker),  amt: brokers * plan.broker });
+    if (managers > 0) lines.push({ name: 'Manager seats', qty: managers + ' × ' + fmt(cur, plan.manager), amt: managers * plan.manager });
+    if (units > 0)    lines.push({ name: plan.unitLabel + (units === 1 ? '' : 's'), qty: units + ' × ' + fmt(cur, plan.unit), amt: units * plan.unit });
+
+    // Add-ons
+    // Dealer Website is dealer-only, shipyards do not get this line.
+    // Studio Pass is dealer-only AND Florida-only.
+    const addOns = [
+      { k: 'easySign', label: 'EasySign · digital contracts',    price: plan.easySign, unit: '/mo' },
+      { k: 'vato',     label: 'VATO · vessel valuation',         price: plan.vato,     unit: '/mo' },
+      ...(isShipyard ? [] : [{ k: 'web', label: 'Dealer Website + inventory sync', price: plan.web, unit: '/mo' }]),
+      { k: 'api',      label: 'API access',                      price: plan.api,      unit: '/mo' },
+      ...(!isShipyard && dealerState === 'FL'
+        ? [{ k: 'studioPass', label: 'YachtWay Studio Pass', price: plan.studioPass, unit: '/mo' }]
+        : []),
+    ];
+    addOns.forEach(a => {
+      if (a.price != null && addonState[a.k]) {
+        lines.push({ name: a.label.split(' · ')[0], qty: fmt(cur, a.price) + a.unit, amt: a.price });
+      }
+    });
+    if (addonState.live > 0 && plan.live != null) {
+      const streamsBilled = Math.max(0, addonState.live - 2); // first 2 streams free
+      lines.push({ name: 'YachtWay LIVE',
+                   qty: addonState.live + ' streams · 2 free, ' + streamsBilled + ' × ' + fmt(cur, plan.live),
+                   amt: streamsBilled * plan.live });
+    }
+
+    const total = lines.reduce((s, l) => s + l.amt, 0);
+
+    // Render lines
+    const linesEl = $('price-lines');
+    if (!lines.length) {
+      linesEl.innerHTML = '<div class="line muted"><span class="name">Add seats, offices, or add-ons to see a breakdown</span><span class="qty"></span><span class="amt">-</span></div>';
+    } else {
+      linesEl.innerHTML = lines.map(l =>
+        '<div class="line"><span class="name">' + l.name + '</span>' +
+        '<span class="qty">' + l.qty + '</span>' +
+        '<span class="amt">' + fmt(cur, l.amt) + '</span></div>'
+      ).join('');
+    }
+
+    $('price-total').innerHTML = fmt(cur, total) + '<span class="per">/mo</span>';
+    $('price-annual').textContent = fmt(cur, total * 12) + ' / year';
+    $('price-region').textContent = region === 'us' ? 'United States' : 'Europe';
+    $('price-persona').textContent = persona === 'shipyard' ? 'Shipyard' : 'Dealership / Brokerage';
+
+    renderAddons(plan);
+  }
+
+  function renderAddons(plan) {
+    const cur = plan.currency;
+    const isShipyard = persona === 'shipyard';
+    const addons = [
+      { k: 'easySign', label: 'EasySign',       price: plan.easySign, unit: '/mo' },
+      { k: 'vato',     label: 'VATO',           price: plan.vato,     unit: '/mo' },
+      ...(isShipyard ? [] : [{ k: 'web', label: 'Dealer Website', price: plan.web, unit: '/mo' }]),
+      { k: 'api',      label: 'API access',     price: plan.api,     unit: '/mo' },
+      // Studio Pass: dealer-only, Florida-only. Hidden entirely outside FL.
+      ...(!isShipyard && dealerState === 'FL'
+        ? [{ k: 'studioPass', label: 'Studio Pass', price: plan.studioPass, unit: '/mo' }]
+        : []),
+    ];
+    const html = addons.map(a => {
+      const unavailable = a.price == null;
+      const on = !unavailable && addonState[a.k];
+      const priceLabel = unavailable ? 'not in region' : fmt(cur, a.price) + a.unit;
+      const tip = ADDON_TIPS[a.k] || '';
+      const tipMarkup = tip ?
+        '<span class="info-i" data-tip="' + tip.replace(/"/g, '&quot;') + '">i</span>' : '';
+      return '<label class="addon ' + (on ? 'on ' : '') + (unavailable ? 'unavailable' : '') + '" data-k="' + a.k + '"' + (tip ? ' title="' + tip.replace(/"/g, '&quot;') + '"' : '') + '>' +
+        '<span class="dot"></span>' +
+        '<span>' + a.label + '</span>' +
+        tipMarkup +
+        '<span class="price">' + priceLabel + '</span>' +
+      '</label>';
+    }).join('') +
+      // LIVE streams as a small number input, first 2 free
+      '<label class="addon ' + (addonState.live > 0 && plan.live != null ? 'on ' : '') + (plan.live == null ? 'unavailable' : '') + '" style="grid-column: span 2;" title="' + (ADDON_TIPS.live || '').replace(/"/g, '&quot;') + '">' +
+        '<span class="dot"></span>' +
+        '<span>YachtWay LIVE</span>' +
+        '<input type="number" min="0" max="50" value="' + addonState.live + '" id="live-count" ' + (plan.live == null ? 'disabled' : '') + ' style="width:64px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.15);border-radius:6px;color:#fff;padding:4px 8px;font-size:13px;font-family:inherit;text-align:right;" />' +
+        '<span class="price">' + (plan.live != null ? fmt(cur, plan.live) + '/stream' : 'not in region') + '</span>' +
+      '</label>';
+    $('addons').innerHTML = html;
+
+    // Wire toggles
+    $('addons').querySelectorAll('.addon[data-k]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        if (el.classList.contains('unavailable')) return;
+        const k = el.dataset.k;
+        addonState[k] = !addonState[k];
+        renderPricing();
+      });
+    });
+    const liveEl = document.getElementById('live-count');
+    if (liveEl) {
+      liveEl.addEventListener('click', (e) => e.stopPropagation());
+      liveEl.addEventListener('input', () => {
+        addonState.live = Math.max(0, parseInt(liveEl.value, 10) || 0);
+        renderPricing();
+      });
+      // Click on the LIVE row (outside the number input) toggles the number
+      // between 0 and 1. Without this, the row felt "dead", there was no way
+      // to turn LIVE on without first typing a number into the small input.
+      const liveLabel = liveEl.closest('label.addon');
+      if (liveLabel) {
+        liveLabel.addEventListener('click', (e) => {
+          if (e.target === liveEl || liveLabel.classList.contains('unavailable')) return;
+          addonState.live = addonState.live > 0 ? 0 : 1;
+          renderPricing();
+        });
+      }
+    }
+  }
+
+  // ── Presenter picker. Multi-select chips, max 2. Populates from TEAM;
+  // on pick, fills the hidden name/title inputs (joined with " & " / " · ")
+  // and shows up to 2 overlapping avatar circles.
+  const MAX_PRESENTERS = 3;
+  const presenterStack = $('presenter-stack');
+  const presenterRoster = $('presenter-roster');
+  let selectedPresenters = []; // array of TEAM indices, length 0..MAX_PRESENTERS
+
+  function initialsFor(name) {
+    return name.trim().split(/\s+/).map(s => s[0] || '').join('').slice(0, 2).toUpperCase();
+  }
+
+  function avatarInnerFor(p) {
+    return p.photo
+      ? '<img src="' + p.photo + '" alt="' + p.name + '" />'
+      : '<span class="initials">' + initialsFor(p.name) + '</span>';
+  }
+
+  function renderPresenterStack() {
+    if (!selectedPresenters.length) {
+      presenterStack.innerHTML =
+        '<div class="presenter-avatar empty"><span class="placeholder">YW</span></div>';
+      return;
+    }
+    presenterStack.innerHTML = selectedPresenters.map(idx => {
+      const p = TEAM[idx];
+      return '<div class="presenter-avatar">' + avatarInnerFor(p) + '</div>';
+    }).join('');
+  }
+
+  function renderPresenterRoster() {
+    const limitHit = selectedPresenters.length >= MAX_PRESENTERS;
+    presenterRoster.innerHTML = TEAM.map((p, i) => {
+      const on = selectedPresenters.includes(i);
+      const locked = !on && limitHit;
+      return '<div class="presenter-chip ' + (on ? 'on ' : '') + (locked ? 'locked' : '') + '" data-i="' + i + '">' +
+        '<div class="chip-thumb">' + avatarInnerFor(p) + '</div>' +
+        '<div class="chip-meta">' +
+          '<div class="chip-name">' + p.name + '</div>' +
+          '<div class="chip-title">' + p.title + '</div>' +
+        '</div>' +
+        '<div class="chip-check"></div>' +
+      '</div>';
+    }).join('') +
+    '<div class="presenter-hint">' +
+      (selectedPresenters.length === 0
+        ? 'Pick yourself, and up to two co-presenters if anyone else from YachtWay is in the room.'
+        : selectedPresenters.length === MAX_PRESENTERS
+          ? MAX_PRESENTERS + ' of ' + MAX_PRESENTERS + ' picked. Tap a name to swap.'
+          : selectedPresenters.length + ' picked. You can add ' + (MAX_PRESENTERS - selectedPresenters.length) + ' more.') +
+    '</div>';
+    presenterRoster.querySelectorAll('.presenter-chip').forEach(el => {
+      el.addEventListener('click', () => {
+        if (el.classList.contains('locked')) return;
+        const i = parseInt(el.dataset.i, 10);
+        const at = selectedPresenters.indexOf(i);
+        if (at >= 0) selectedPresenters.splice(at, 1);
+        else selectedPresenters.push(i);
+        syncPresenterFields();
+      });
+    });
+  }
+
+  function syncPresenterFields() {
+    const picked = selectedPresenters.map(i => TEAM[i]).filter(Boolean);
+    fields.presenterName.value  = picked.map(p => p.name).join(' & ');
+    fields.presenterTitle.value = picked.map(p => p.title).join(' · ');
+    renderPresenterStack();
+    renderPresenterRoster();
+  }
+
+  function setPresentersByNames(joinedName) {
+    selectedPresenters = [];
+    if (!joinedName) { syncPresenterFields(); return; }
+    // Accept "&", ",", " and " separators.
+    const parts = joinedName.split(/\s*(?:&|,| and )\s*/i).map(s => s.trim()).filter(Boolean);
+    parts.forEach(part => {
+      // Back-compat: an older config might be "Name · Title"; take just the name.
+      const cleanName = part.split(' · ')[0].trim();
+      const idx = TEAM.findIndex(p => p.name.toLowerCase() === cleanName.toLowerCase());
+      if (idx >= 0 && !selectedPresenters.includes(idx) && selectedPresenters.length < MAX_PRESENTERS) {
+        selectedPresenters.push(idx);
+      }
+    });
+    syncPresenterFields();
+  }
+
+  syncPresenterFields();
+
+  // Recompute when team inputs change
+  ['priceBrokers', 'priceManagers', 'priceUnits'].forEach(k => {
+    fields[k].addEventListener('input', renderPricing);
+  });
+
+  // Wire +/− stepper buttons for the team-row number cells.
+  document.querySelectorAll('button.step-btn[data-step]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const el = document.getElementById(btn.dataset.step);
+      if (!el) return;
+      const cur = parseInt(el.value, 10) || 0;
+      const dir = parseInt(btn.dataset.dir, 10) || 1;
+      el.value = Math.max(0, cur + dir);
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
+
+  let logoData = null; // data URL
+  let logoFileName = null;
+  let logoInvert = false;
+
+  function setLogoPreview(dataUrl, fileName, isDark) {
+    logoData = dataUrl;
+    logoFileName = fileName;
+    logoInvert = !!isDark;
+    if (dataUrl) {
+      const filterStyle = isDark ? 'filter: brightness(0) invert(1);' : '';
+      logoPreview.innerHTML = '<img src="' + dataUrl + '" alt="Logo" style="' + filterStyle + '" />';
+      logoName.textContent = (fileName || 'Logo loaded') + (isDark ? ' · auto-inverted to white' : '');
+      logoName.classList.remove('empty');
+      logoZone.classList.add('has-file');
+    } else {
+      logoPreview.innerHTML = '<span class="placeholder">Logo</span>';
+      logoName.textContent = 'Click or drop a file…';
+      logoName.classList.add('empty');
+      logoZone.classList.remove('has-file');
+    }
+  }
+
+  logoInput.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result;
+      // Detect if the logo is predominantly dark; if so, mark for inversion when shown on dark backgrounds.
+      detectDark(dataUrl, file.type, (isDark) => {
+        setLogoPreview(dataUrl, file.name, isDark);
+      });
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function detectDark(dataUrl, mime, cb) {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      try {
+        const w = Math.min(img.naturalWidth || 256, 256);
+        const h = Math.min(img.naturalHeight || 256, 256);
+        const cv = document.createElement('canvas');
+        cv.width = w; cv.height = h;
+        const ctx = cv.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        const data = ctx.getImageData(0, 0, w, h).data;
+        let sum = 0, count = 0;
+        for (let i = 0; i < data.length; i += 4) {
+          const a = data[i + 3];
+          if (a < 32) continue; // skip transparent
+          // Perceived brightness
+          const lum = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+          sum += lum;
+          count++;
+        }
+        if (count === 0) return cb(false);
+        const avg = sum / count;
+        cb(avg < 90); // dark threshold
+      } catch (err) {
+        cb(false);
+      }
+    };
+    img.onerror = () => cb(false);
+    img.src = dataUrl;
+  }
+
+  // Auto-derive dealer-short from dealer-name first word.
+  fields.dealerName.addEventListener('input', () => {
+    const first = fields.dealerName.value.trim().split(/\s+/)[0] || '';
+    fields.dealerShort.value = first;
+  });
+
+  // Live counter on the pitch-line input.
+  function updateCoverCounter() {
+    const el = $('cover-line-counter');
+    if (el) el.textContent = (fields.coverLine.value.length) + ' / 80';
+  }
+  fields.coverLine.addEventListener('input', updateCoverCounter);
+
+  function collectConfig() {
+    const plan = PLANS[planKey()];
+    const cur = plan.currency;
+    const brokers  = parseInt(fields.priceBrokers.value, 10) || 0;
+    const managers = parseInt(fields.priceManagers.value, 10) || 0;
+    const isShipyard = persona === 'shipyard';
+    const isAuthDealer = persona === 'dealer' && dealerType === 'authorized';
+    const showBrands = isShipyard || isAuthDealer;
+    const namedBrands = brands.filter(b => (b.name || '').trim()).map(b => ({ name: b.name.trim() }));
+    const units = isShipyard ? namedBrands.length : (parseInt(fields.priceUnits.value, 10) || 0);
+    const livePaid = Math.max(0, addonState.live - 2);
+    const monthly =
+      brokers  * plan.broker  +
+      managers * plan.manager +
+      units    * plan.unit    +
+      (addonState.easySign && plan.easySign != null ? plan.easySign : 0) +
+      (addonState.vato     && plan.vato     != null ? plan.vato     : 0) +
+      (!isShipyard && addonState.web && plan.web != null ? plan.web : 0) +
+      (addonState.api      && plan.api      != null ? plan.api      : 0) +
+      (plan.live != null ? livePaid * plan.live : 0);
+
+    return {
+      dealerName: fields.dealerName.value.trim(),
+      dealerShort: fields.dealerShort.value.trim() || (fields.dealerName.value.trim().split(/\s+/)[0] || ''),
+      attendeeFirst: fields.attendeeFirst.value.trim(),
+      attendeeLast:  fields.attendeeLast.value.trim(),
+      attendeeName:  (fields.attendeeFirst.value.trim() + ' ' + fields.attendeeLast.value.trim()).trim(),
+      presenterName: fields.presenterName.value.trim(),
+      presenterTitle: fields.presenterTitle.value.trim(),
+      presenters: selectedPresenters.map(i => {
+        const p = TEAM[i];
+        return p ? { name: p.name, title: p.title, photo: p.photo || '' } : null;
+      }).filter(Boolean),
+      presenterPhoto: (function () {
+        const p = TEAM[selectedPresenters[0]];
+        return p && p.photo ? p.photo : '';
+      })(),
+      coverHeadline: {
+        line: fields.coverLine.value.trim(),
+      },
+      // Footprint mirrors the pricing inputs so the deck stays in sync.
+      brokers: parseInt(fields.priceBrokers.value, 10) || null,
+      locations: parseInt(fields.priceUnits.value, 10) || null,
+      listings: persona === 'dealer' ? (parseInt(fields.centralListings.value, 10) || null) : null,
+      centralListings: persona === 'dealer' ? (parseInt(fields.centralListings.value, 10) || null) : null,
+      logoData: logoData,
+      logoFileName: logoFileName,
+      logoInvert: logoInvert,
+      websiteScore: persona === 'dealer' ? websiteScore : null,
+      websiteUrl: persona === 'dealer' ? fields.websiteUrl.value.trim() : null,
+      imageQuality: persona === 'dealer' ? imageQuality : null,
+      websiteScreenshot:     persona === 'dealer' ? websiteScreenshot     : null,
+      websiteScreenshotName: persona === 'dealer' ? websiteScreenshotName : null,
+      hasInventory:  persona === 'dealer' ? hasInventory  : null,
+      inventoryFeed: persona === 'dealer' && hasInventory === 'yes' ? inventoryFeed : null,
+      region: region,
+      persona: persona,
+      distribution: persona === 'shipyard' ? distribution : null,
+      dealerType:   persona === 'dealer'   ? dealerType   : null,
+      dealerState:  persona === 'dealer'   ? dealerState  : null,
+      dealerCount: persona === 'shipyard' && distribution === 'dealer-network'
+                     ? (parseInt(fields.dealerCount.value, 10) || null)
+                     : null,
+      pricing: {
+        currency: cur,
+        regionLabel: region === 'us' ? 'United States' : 'Europe',
+        personaLabel: persona === 'shipyard' ? 'Shipyard' : 'Dealership / Brokerage',
+        brokers: brokers,
+        managers: managers,
+        units: units,
+        unitLabel: plan.unitLabel,
+        brands: showBrands ? namedBrands : null,
+        addons: { ...addonState },
+        monthly: monthly,
+        annual: monthly * 12,
+      },
+      ts: Date.now(),
+    };
+  }
+
+  function applyConfig(cfg) {
+    fields.dealerName.value = cfg.dealerName || '';
+    fields.dealerShort.value = cfg.dealerShort || '';
+    fields.attendeeFirst.value = cfg.attendeeFirst || '';
+    fields.attendeeLast.value  = cfg.attendeeLast  || '';
+    // Presenter is locked to the TEAM roster, try to match the saved
+    // name(s) back to entries; otherwise reset to unpicked.
+    {
+      if (Array.isArray(cfg.presenters) && cfg.presenters.length) {
+        setPresentersByNames(cfg.presenters.map(p => p.name).join(' & '));
+      } else {
+        let presetName = cfg.presenterName || '';
+        // Back-compat: older configs stored "Name · Title" in presenterName.
+        if (!cfg.presenterTitle && presetName.includes(' · ')) {
+          presetName = presetName.split(' · ')[0].trim();
+        }
+        setPresentersByNames(presetName);
+      }
+    }
+    fields.coverLine.value = (cfg.coverHeadline && (cfg.coverHeadline.line || cfg.coverHeadline.highlight || cfg.coverHeadline.line1)) || '';
+    updateCoverCounter();
+    if (cfg.logoData) setLogoPreview(cfg.logoData, cfg.logoFileName, cfg.logoInvert);
+    else setLogoPreview(null);
+
+    setWebsiteScore(cfg.websiteScore != null ? cfg.websiteScore : 5);
+    fields.websiteUrl.value = cfg.websiteUrl || '';
+    setImageQuality(cfg.imageQuality != null ? cfg.imageQuality : 5);
+    setScreenshotPreview(cfg.websiteScreenshot || null, cfg.websiteScreenshotName || null);
+    fields.centralListings.value = cfg.centralListings || cfg.listings || '';
+    hasInventory  = cfg.hasInventory  || 'no';
+    inventoryFeed = cfg.inventoryFeed || 'other';
+    renderInventoryUI();
+
+    region = cfg.region || 'us';
+    persona = cfg.persona || 'dealer';
+    distribution = cfg.distribution || 'factory';
+    dealerType   = cfg.dealerType   || 'brokerage';
+    dealerState  = cfg.dealerState  || '';
+    setSeg('seg-region', region);
+    renderLocationField();
+    setSeg('seg-persona', persona);
+    setSeg('seg-distribution', distribution);
+    setSeg('seg-dealer-type', dealerType);
+    const stateSel = document.getElementById('dealer-state');
+    if (stateSel) stateSel.value = dealerState;
+    fields.dealerCount.value = cfg.dealerCount || '';
+    renderPersonaUI();
+    renderDistributionUI();
+    if (cfg.pricing) {
+      fields.priceBrokers.value  = cfg.pricing.brokers  || '';
+      fields.priceManagers.value = cfg.pricing.managers || '';
+      fields.priceUnits.value    = cfg.pricing.units    || '';
+      brands = Array.isArray(cfg.pricing.brands) && cfg.pricing.brands.length
+               ? cfg.pricing.brands.map(b => ({ name: b.name || '' }))
+               : [];
+      Object.assign(addonState, cfg.pricing.addons || {});
+    } else {
+      // Back-compat: older configs only had brokers/locations on the root.
+      if (cfg.brokers)   fields.priceBrokers.value = cfg.brokers;
+      if (cfg.locations) fields.priceUnits.value   = cfg.locations;
+    }
+    renderPricing();
+  }
+
+  // Run all the mandatory-field checks. Returns the config if valid,
+  // false otherwise (and flashes the offending field).
+  function validateAndCollect() {
+    const cfg = collectConfig();
+    if (!cfg.dealerName) {
+      fields.dealerName.focus();
+      fields.dealerName.style.borderColor = '#ff7a59';
+      setTimeout(() => fields.dealerName.style.borderColor = '', 1500);
+      return false;
+    }
+    if (!cfg.attendeeFirst || !cfg.attendeeLast) {
+      const miss = !cfg.attendeeFirst ? fields.attendeeFirst : fields.attendeeLast;
+      miss.focus();
+      fields.attendeeFirst.style.borderColor = '#ff7a59';
+      fields.attendeeLast.style.borderColor  = '#ff7a59';
+      setTimeout(() => {
+        fields.attendeeFirst.style.borderColor = '';
+        fields.attendeeLast.style.borderColor  = '';
+      }, 1500);
+      return false;
+    }
+    if (!cfg.presenterName || !cfg.presenterTitle) {
+      const card = $('presenter-card');
+      if (card) {
+        card.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        card.style.borderColor = '#ff7a59';
+        setTimeout(() => card.style.borderColor = '', 1500);
+      }
+      return false;
+    }
+    if (!cfg.logoData) {
+      logoZone.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      logoZone.style.borderColor = '#ff7a59';
+      setTimeout(() => logoZone.style.borderColor = '', 1500);
+      return false;
+    }
+    if (persona === 'dealer' && !cfg.websiteScreenshot) {
+      screenshotZone.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      screenshotZone.style.borderColor = '#ff7a59';
+      setTimeout(() => screenshotZone.style.borderColor = '', 1500);
+      return false;
+    }
+    if (persona === 'dealer' && !cfg.centralListings) {
+      fields.centralListings.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      fields.centralListings.focus();
+      fields.centralListings.style.borderColor = '#ff7a59';
+      setTimeout(() => fields.centralListings.style.borderColor = '', 1500);
+      return false;
+    }
+    return cfg;
+  }
+
+  // Compress JSON, encode for URL (~base64url). Used by Copy Share Link.
+  async function encodeCfgToHash(cfg) {
+    const json = JSON.stringify(cfg);
+    const stream = new Blob([json]).stream().pipeThrough(new CompressionStream('gzip'));
+    const buf = await new Response(stream).arrayBuffer();
+    let bin = '';
+    const bytes = new Uint8Array(buf);
+    for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+    // base64url
+    return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+
+  function saveAndOpen(target, extraQuery) {
+    const cfg = validateAndCollect();
+    if (!cfg) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cfg));
+    } catch (e) {
+      alert('Could not save config (storage full?). Logo may be too large.');
+      return;
+    }
+    saveToHistory(cfg);
+    // Preserve preview platform auth (token in query/hash).
+    const url = target +
+      (window.location.search || '') +
+      (extraQuery ? (window.location.search ? '&' : '?') + extraQuery : '') +
+      (window.location.hash || '');
+    // Open the deck in a new tab so the sales person does not lose this
+    // config screen, they can come back and tweak fields without re-entering.
+    // Same-tab nav inherits the preview platform's auth cookie.
+    // Opening _blank can drop the session ("preview token required").
+    window.location.href = url;
+  }
+
+  // Copy a shareable link that carries the entire personalized config
+  // in the URL hash. Useful when the salesperson wants to prepare today
+  // and open the same deck tomorrow on any device.
+  async function copyShareLink() {
+    const cfg = validateAndCollect();
+    if (!cfg) return;
+    const fb = $('link-feedback');
+    fb.textContent = 'Building link...';
+    fb.style.color = 'rgba(255,255,255,.5)';
+    try {
+      const encoded = await encodeCfgToHash(cfg);
+      const base = window.location.href.replace(/[^/]*$/, '') + 'deck.html';
+      const link = base + '#cfg=' + encoded;
+      const sizeKB = Math.round(link.length / 1024);
+      await navigator.clipboard.writeText(link);
+      fb.textContent = '\u2713 Copied. ' + sizeKB + ' KB' + (sizeKB > 100 ? ' \u00b7 large (logo/screenshot embedded)' : '');
+      fb.style.color = '#5fd398';
+      setTimeout(() => { fb.textContent = ''; }, 6000);
+    } catch (e) {
+      fb.textContent = 'Could not copy link. ' + (e && e.message ? e.message : '');
+      fb.style.color = '#ff9b80';
+    }
+  }
+
+  function saveToHistory(cfg) {
+    if (!cfg.dealerName) return;
+    try {
+      const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+      // Dedupe by dealerName
+      const filtered = history.filter(h => h.dealerName !== cfg.dealerName);
+      filtered.unshift(cfg);
+      // Cap at 6
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(filtered.slice(0, 6)));
+      renderPresets();
+    } catch (e) {}
+  }
+
+  function renderPresets() {
+    const list = $('preset-list');
+    if (!list) return; // preset UI was removed
+    list.innerHTML = '';
+    try {
+      const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+      if (!history.length) {
+        list.innerHTML = '<span style="color:rgba(255,255,255,.3);font-size:13px;">No saved dealers yet.</span>';
+        return;
+      }
+      history.forEach((h, i) => {
+        const pill = document.createElement('span');
+        pill.className = 'preset-pill';
+        pill.innerHTML = h.dealerName + '<span class="x" data-idx="' + i + '">×</span>';
+        pill.addEventListener('click', (e) => {
+          if (e.target.classList.contains('x')) return;
+          applyConfig(h);
+        });
+        const xBtn = pill.querySelector('.x');
+        xBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const idx = parseInt(xBtn.getAttribute('data-idx'), 10);
+          const arr = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+          arr.splice(idx, 1);
+          localStorage.setItem(HISTORY_KEY, JSON.stringify(arr));
+          renderPresets();
+        });
+        list.appendChild(pill);
+      });
+    } catch (e) {}
+  }
+
+  $('open-deck').addEventListener('click', () => saveAndOpen('deck.html'));
+  $('save-pdf').addEventListener('click', () => saveAndOpen('deck.html', 'autoprint=1'));
+  $('copy-link').addEventListener('click', () => copyShareLink());
+
+  // Initial render of addons + pricing
+  renderPersonaUI();
+  renderDistributionUI();
+  renderPricing();
+
+  // Initial state, always start blank. Saved presets live in the
+  // "Recent" pills below; clicking one restores it. Avoids leaking the
+  // last presenter's name/logo into a fresh pitch.
+  applyConfig({});
+
+  renderPresets();
+})();
+</script>
+</body>
+</html>
